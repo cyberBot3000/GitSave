@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Save - сохраните понравившиеся репозитории</title>
+    <link rel="stylesheet" href="./styles/HomePage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <main class="main">
+        <div class="container">
+            <div class="search-field">
+                <div class="search-field__search">
+                    <div class="search-field__search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="search-field__input-group">
+                        <input type="text" name="search" id="search" class="search-field__input" placeholder="Поиск...">
+                        <div class="search-field__clear-btn" id="clearSearch">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-field__hints">
+                    <div class="search-field__hints-list">
+                    </div>
+                </div>
+            </div>
+            <div class="your-repos">
+                <h2 class="your-repos__heading">My Repositories</h2>
+                <div class="your-repos__list">
+                    <!-- <div class="your-repos__list-item">
+                        <div class="repository-full">
+                            <div class="repository-full__main-info">
+                                <span class="repository-full__text repository-full__default-elem repository-full__name">
+                                    repository
+                                </span>
+                                <span class="repository-full__text repository-full__sub-elem repository-full__owner">
+                                    owner
+                                </span>
+                                <a href="http://" class="repository-full__link">
+                                    <div class="repository-full__icon repository-full__icon_big">
+                                        <i class="fa-solid fa-link"></i>
+                                    </div>
+                                </a>
+                                <div class="repository-full__text repository-full__sub-elem repository-full__id">
+                                    12344220233221
+                                </div>
+                            </div>
+                            <div class="repository-full__sub-info">
+                                <div class="repository-full__icon-text repository-full__sub-elem">
+                                    <span class="repository-full__icon repository-full__icon_small"><i class="fa-solid fa-star"></i></span>
+                                    <span class="repository-full__text">1233</sp>
+                                </div>
+                                <div class="repository-full__icon-text repository-full__sub-elem">
+                                    <div class="repository-full__icon repository-full__icon_small"><i class="fa-regular fa-calendar"></i></div>
+                                    <div class="repository-full__text">2019.01.01</div>
+                                </div>
+                                <div class="repository-full__icon-text repository-full__sub-elem">
+                                    <div class="repository-full__icon repository-full__icon_small"><i class="fa-regular fa-eye"></i></div>
+                                    <div class="repository-full__text">10000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./scripts/app.js" type="module"></script>
+</body>
+
+</html>
