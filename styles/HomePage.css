@@ -23,6 +23,7 @@ body {
 	max-width: 1280px;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 1em 0;
 }
 
 .search-field {

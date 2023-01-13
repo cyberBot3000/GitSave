@@ -4,21 +4,17 @@ import repositoryFull from "./components/repository-full.js";
 import repositoryHint from "./components/repository-hint.js";
 import UXHint from "./components/ux-hint.js";
 import { debounceAsync } from "./utils/debounce.js";
-import { elementFrom } from "./utils/elementFrom.js";
+import elementFrom from "./utils/elementFrom.js";
 import { hideElement, showElement } from "./utils/elementVisibility.js";
-const octokit = new Octokit({
-	auth: "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",
-});
+
+const octokit = new Octokit();
 const SAVED_REPOS_KEY = "saved_repos";
 const searchInput = document.querySelector("#search");
 const repoHintsList = document.querySelector(".search-field__hints-list");
 const repoFullList = document.querySelector(".your-repos__list");
-const searchClearBtn = document.getElementById("clearSearch");
 
-updateFullReposList();
-
-searchClearBtn.addEventListener("click", () => {
-	disableSearch();
+window.addEventListener("DOMContentLoaded", () => {
+	updateFullReposList();
 });
 
 document.addEventListener("click", async e => {
@@ -39,13 +35,23 @@ document.addEventListener("click", async e => {
 		updateFullReposList();
 		disableSearch();
 	}
+	if (e.target.closest("#clearSearch")) {
+		disableSearch();
+	}
 });
-searchInput.addEventListener("input", debounceAsync(searchHandler, 700, showLoader));
+searchInput.addEventListener(
+	"input",
+	debounceAsync(searchHandler, 700, showLoader)
+);
+
+
+
+
 
 async function searchHandler(e) {
 	try {
 		let searchQuery = e.target.value;
-		if(!initSearch(searchQuery)){
+		if (!initSearch(searchQuery)) {
 			return;
 		}
 		let response = await octokit.request(
@@ -59,7 +65,6 @@ async function searchHandler(e) {
 		}
 		setHintListItems(response.data.items);
 	} catch (err) {
-		console.log(err);
 		showSearchFieldMessage("oops, something went wrong on our side");
 	}
 }
@@ -82,13 +87,6 @@ function showLoader() {
 	repoHintsList.append(elementFrom(loader("search-field__loader")));
 }
 
-function hideLoader() {
-	if (!repoHintsList.querySelector(".search-field__loader")) {
-		return;
-	}
-	repoHintsList.querySelector(".search-field__loader").remove();
-}
-
 function saveRepository(repo) {
 	const savedRepos = getSavedReposArr();
 	if (savedRepos.filter(elem => elem.id === repo.id).length !== 0) {
@@ -109,23 +107,7 @@ function updateFullReposList() {
 	let savedRepos = getSavedReposArr();
 	repoFullList.innerHTML = "";
 	savedRepos.forEach(repo => {
-		//html_url, stargazers_count, watchers_count, created_at, id, name, owner.login
-		let formattedDate = new Date(repo.created_at).toLocaleDateString("ru", {
-			dateStyle: "short",
-		});
-		repoFullList.append(
-			elementFrom(
-				repositoryFull(
-					repo.name,
-					repo.owner.login,
-					repo.id,
-					repo.stargazers_count,
-					formattedDate,
-					repo.watchers_count,
-					repo.html_url
-				)
-			)
-		);
+		repoFullList.append(elementFrom(repositoryFull(repo)));
 	});
 }
 
@@ -134,20 +116,9 @@ function disableSearch() {
 	hideElement(repoHintsList);
 }
 
-function setHintListItems(repos){
-	repoHintsList.innerHTML = '';
+function setHintListItems(repos) {
+	repoHintsList.innerHTML = "";
 	repos.forEach(repo => {
-		let dateCreated = new Date(repo.created_at);
-		repoHintsList.append(
-			elementFrom(
-				repositoryHint(
-					repo.name,
-					repo.owner.login,
-					dateCreated.toLocaleDateString("ru", {
-						dateStyle: "short",
-					})
-				)
-			)
-		);
+		repoHintsList.append(elementFrom(repositoryHint(repo)));
 	});
 }
